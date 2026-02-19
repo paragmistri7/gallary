@@ -5,7 +5,7 @@ import {useSelector} from "react-redux"
 const Header = () => {
     const selector = useSelector((state) => {
         console.log("<<s", state)
-        return state?.cart?.value
+        return state?.cart?.cartValue
     })
     
     console.log(selector)

@@ -1,19 +1,17 @@
-
-"use client"
-import Header from "./Header/header"
-import {Provider}  from "react-redux"
-import Card from "./card/card"
-import store from "./redux/store"
+"use client";
+import Header from "./Header/header";
+import { Provider } from "react-redux";
+import ProductList from "./productList";
+import store from "./redux/store";
 const App = () => {
+  return (
+    <>
+      <Provider store={store}>
+        <Header />
+        <ProductList />
+      </Provider>
+    </>
+  );
+};
 
-  return (<>
-    <Provider store={store}>
-
-    <Header />
-    <Card />
-    </Provider>
-  </>
-  )
-}
-
-export default App
+export default App;

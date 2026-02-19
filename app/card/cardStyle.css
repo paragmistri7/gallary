@@ -15,10 +15,12 @@
     padding : 10px ;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     transition: transform 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 /* Image */
@@ -41,6 +43,8 @@
     padding: 5px 10px;
     font-size: 12px;
     border-radius: 20px;
+    font-weight: 600;
+letter-spacing: 0.8px;
 }
 
 /* Content */
@@ -48,9 +52,10 @@
     padding: 15px;
 }
 
-.card-content h3 {
+.card-title {
     font-size: 18px;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .weight {
@@ -109,4 +114,21 @@
 
 .add-btn:hover {
     background: #15803d;
+      font-weight: 700;
+}
+.rm-btn {
+        width: 100%;
+    padding: 10px;
+    background: red;
+        color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+    
+}
+.rm-btn:hover {
+    background: #dc2626;
+      font-weight: 700;
 }
