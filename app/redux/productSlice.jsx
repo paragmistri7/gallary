@@ -16,10 +16,7 @@ const productsSlice = createSlice({
     name: 'products'
     , initialState, 
     extraReducers: (builder) => {
-        console.log(builder)
-
         builder.addCase(fetchProducts?.fulfilled, (state, action) => {
-            console.log(state , action )
             state.status = "succeeded"
             state.item = action?.payload
         } )

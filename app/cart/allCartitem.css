@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-div {
+  background: #3aabe0;
+  display: flex;
+  width: 60%;
+  margin: auto;
+  align-items: center;
+  border-bottom: 2px solid #0d3344;
+}
+
+.main-div:hover {
+  box-shadow:
+    rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  transform: scale(1.002);
+  transition: all 0.3s ease-in-out;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #3aabe0;
+  margin: 5px auto;
+  padding: 10px;
+  text-align: center;
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0px 3px 6px,
+    rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #3aabe0;
+  margin: 5px auto;
+  padding: 5px;
+  text-align: center;
+  box-shadow:
+    rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.no-items{
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #28afee6b;
+  width:  60%;
+  margin: auto;
+  padding: 40px;
+  text-align: center;
+}
+.priceAll {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  /* margin-top: 5px; */
+}
+.category {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+}
+.rm-btn {
+  width: 100%;
+  padding: 5px 10px;
+  background: red;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.rm-btn:hover {
+  background: #dc2626;
+  font-weight: 700;
+}
+.input-main {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+.input-val {
+  background: #ffffff;
+  width: 50px;
+  padding: 0 5px;
+  height: fit-content;
+  margin: auto 10px;
+  border-radius: 10px;
+}
+.place-btn {
+  padding: 5px 10px;
+  background: rgb(0, 255, 8);
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.place-btn:hover {
+  background: #61b65e7b;
+  font-weight: 700;
+  outline: 1px solid #0b0b0b;   
+}
