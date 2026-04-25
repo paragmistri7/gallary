@@ -1,3 +1,4 @@
+"use client"
 import { Fragment, useEffect } from "react";
 import Card from "./card/card";
 import { fetchProducts } from "./redux/productSlice";
