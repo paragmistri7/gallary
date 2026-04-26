@@ -1,8 +1,9 @@
+
 "use client";
 import { Fragment, useEffect } from "react";
-import Card from "./card/card";
-import { fetchProducts } from "./redux/productSlice";
+import Card from "./card/page";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../redux/productSlice";
 
 const ProductList = () => {
   const dispatch = useDispatch();

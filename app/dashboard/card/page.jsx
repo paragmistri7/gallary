@@ -1,7 +1,7 @@
 "use client";
 import "./cardStyle.css";
 import Image from "next/image";
-import { addCartItem , removeCartItem } from "../redux/slice";
+import { addCartItem , removeCartItem } from "../../redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 const Card = ({ data }) => {
   const dispatch = useDispatch();

@@ -2,13 +2,13 @@
 import Image from "next/image";
 import "./allCartitem.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, removeCartItem, clearCartItem } from "../redux/slice";
-import { useNavigate } from "react-router-dom";
+import { addItem, removeCartItem, clearCartItem } from "../../redux/slice";
+import { useRouter } from "next/navigation";
 
 const AllCartItems = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state?.cart);
-  const navigate = useNavigate();
+const navigate = useRouter();
 
   const handleQuantityChange = (value, id) => {
     const updated = selector?.items
@@ -89,7 +89,7 @@ const AllCartItems = () => {
           onClick={() => {
             alert("Order Placed");
             dispatch(clearCartItem());
-            navigate("/");
+           router.push("/dashboard");
           }}
         >
           Place Order
