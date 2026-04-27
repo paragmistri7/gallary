@@ -86,6 +86,7 @@ export default function AuthPage() {
         .single()
 
       if (error || !data) {
+        console.log('Login failed 111:', error)
         setMessage({ text: 'Invalid username or password', type: 'error' })
         return
       }
@@ -93,7 +94,8 @@ export default function AuthPage() {
       console.log('Logged in:', data)
         setMessage({ text: `Welcome back, ${data.username}! 👋`, type: 'success' })
         router.push('/dashboard')
-    } catch {
+    } catch(error) {
+      console.log('Login error:', error)
       setMessage({ text: 'Unexpected error occurred', type: 'error' })
     } finally {
       setLoading(false)
