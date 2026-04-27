@@ -5,7 +5,11 @@ import { addCartItem , removeCartItem } from "../../redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 const Card = ({ data }) => {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state);
+  const selector = useSelector((state) => state?.cart);
+
+//   const cardData = useSelector((state) => state.cards.currentCard);
+// const userPermissions = useSelector((state) => state.user.permissions);
+  
   return (
     <div className="card">
       <div className="card-image">
@@ -14,6 +18,7 @@ const Card = ({ data }) => {
           alt={data?.title}
           width={300}
           height={200}
+            priority
           style={{ objectFit: "cover", width: "100%", height: "auto" }}
         />
         <span className="badge">{data?.category}</span>
@@ -27,7 +32,7 @@ const Card = ({ data }) => {
         <p className="weight">{data?.weight} kg Pack {`(${data?.availabilityStatus})`} </p>
         <p className="price">{data?.price} ₹ </p>
         <div style={{ display: "flex", gap: 10 }}>
-          {selector?.cart?.items?.find((val) => val?.id === data?.id) ? (
+          {selector?.items?.find((val) => val?.id === data?.id) ? (
             <button className="rm-btn" onClick={() => dispatch(removeCartItem(data))}>
               Remove item
             </button>

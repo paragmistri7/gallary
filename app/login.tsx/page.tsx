@@ -39,6 +39,7 @@ export default function AuthPage() {
 
     setLoading(true)
     try {
+            if (!supabase) { throw new Error('Supabase client not initialized')}
       const { data: existing } = await supabase
         .from('users')
         .select('id')
@@ -76,6 +77,7 @@ export default function AuthPage() {
 
     setLoading(true)
     try {
+      if (!supabase) { throw new Error('Supabase client not initialized')}
       const { data, error } = await supabase
         .from('users')
         .select('*')
@@ -118,6 +120,7 @@ export default function AuthPage() {
     setLoading(true)
     try {
       // Step 1: Check if username exists
+            if (!supabase) { throw new Error('Supabase client not initialized')}
       const { data: existing, error: fetchError } = await supabase
         .from('users')
         .select('id')

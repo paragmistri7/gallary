@@ -38,6 +38,7 @@ const navigate = useRouter();
               alt={item?.title}
               width={80}
               height={80}
+                priority
               style={{ objectFit: "cover" }}
             />
             <div>

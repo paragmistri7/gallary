@@ -33,7 +33,7 @@ export default function About() {
   /* ── Fetch Users ── */
   const fetchUsers = async () => {
     setLoading(true);
-
+      if (!supabase) { throw new Error('Supabase client not initialized')}
     const { data, error } = await supabase
       .from("users")
       .select("id, username, name, email, mobile_no, address, created_at")
@@ -48,7 +48,7 @@ export default function About() {
 useEffect(() => {
   const loadUsers = async () => {
     setLoading(true);
-
+      if (!supabase) { throw new Error('Supabase client not initialized')}
     const { data, error } = await supabase
       .from("users")
       .select("*")
@@ -72,13 +72,14 @@ useEffect(() => {
 
   const handleDialogSubmit = async (formData: UserFormData) => {
     if (mode === "add") {
+      if (!supabase) { throw new Error('Supabase client not initialized')}
       const { error } = await supabase.from("users").insert([formData]);
       if (error) return showToast(error.message, "error");
       showToast("User created ✓");
     } else if (selected) {
       const payload: Partial<UserFormData> = { ...formData };
       if (!payload.password) delete payload.password;
-
+      if (!supabase) { throw new Error('Supabase client not initialized')}
       const { error } = await supabase
         .from("users")
         .update(payload)
