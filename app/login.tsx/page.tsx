@@ -3,6 +3,8 @@
 import React, { useState } from 'react'
 import { supabase } from '../../supabaseClient'
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
+import { setLoginUserData } from '../redux/loginDataSlice'
 
 // 3 views: 'login' | 'signup' | 'forgot'
 type View = 'login' | 'signup' | 'forgot'
@@ -14,8 +16,9 @@ export default function AuthPage() {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null)
-    const [loading, setLoading] = useState(false)
-    const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch();
 
   const resetForm = () => {
     setUsername('')
@@ -90,10 +93,11 @@ export default function AuthPage() {
         setMessage({ text: 'Invalid username or password', type: 'error' })
         return
       }
-
-      console.log('Logged in:', data)
-        setMessage({ text: `Welcome back, ${data.username}! 👋`, type: 'success' })
-        router.push('/dashboard')
+      const safeUser = { ...data }
+      delete safeUser.password
+       dispatch(setLoginUserData(safeUser))
+      setMessage({ text: `Welcome back, ${data.username}! 👋`, type: 'success' })
+      router.push('/dashboard')
     } catch(error) {
       console.log('Login error:', error)
       setMessage({ text: 'Unexpected error occurred', type: 'error' })

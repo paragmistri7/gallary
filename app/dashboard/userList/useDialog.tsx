@@ -76,8 +76,10 @@ const [form, setForm] = useState<UserFormData>(() =>
     if (!form.email.trim()) errs.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = "Invalid email address";
 
-    if (form.mobile_no && !/^\+?[\d\s\-(]{7,15}$/.test(form.mobile_no))
+    if (form.mobile_no && !/^\+?[\d\s\-(]{10}$/.test(form.mobile_no))
       errs.mobile_no = "Invalid mobile number";
+
+   if (form.address.length > 75) errs.address = "Address too long (max 75 chars)"; 
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -137,10 +139,11 @@ const [form, setForm] = useState<UserFormData>(() =>
                   </label>
 
                   <div style={isPassword ? s.inputWrap : undefined}>
-                    {multiline ? (
+                    {multiline ? (<>
                       <textarea
                         name={name}
                         value={form[name]}
+                        maxLength={75}
                         onChange={handleChange}
                         rows={3}
                         placeholder={placeholder}
@@ -150,6 +153,10 @@ const [form, setForm] = useState<UserFormData>(() =>
                           ...(errors[name] ? s.inputError : {}),
                         }}
                       />
+                      <div style={{ fontSize: "12px", color: "#888" , display: "flex", justifyContent: "flex-end"}}>
+                         {form.address.length}/75
+                      </div>
+                        </>
                     ) : (
                       <input
                         type={inputType}

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../../supabaseClient";
 import UserDialog, { UserFormData } from "./useDialog";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store.jsx";
 
 /* ─── Types ─── */
 interface User {
@@ -23,6 +25,10 @@ export default function About() {
   const [mode, setMode] = useState<"add" | "update">("add");
   const [selected, setSelected] = useState<User | null>(null);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
+
+  const userLoginData = useSelector(
+    (state: RootState) => state.loginData.loginUserData
+  );
 
   /* ── Toast ── */
   const showToast = (msg: string, type: "success" | "error" = "success") => {
@@ -100,6 +106,23 @@ useEffect(() => {
         address: selected.address ?? "",
       }
     : null;
+  
+  const handleDeleteUser = async (id: number) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+  if (!confirmDelete) return;
+
+  const { error } = await supabase
+    .from("users")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    showToast(error.message, "error");
+  } else {
+    showToast("User deleted ✓");
+    fetchUsers(); // refresh list
+  }
+};
 
   return (
     <div style={s.page}>
@@ -120,13 +143,18 @@ useEffect(() => {
       {/* Table */}
       <div style={s.tableWrapper}>
      <table style={s.table}>
-  <thead>
-    <tr>
-      {["ID", "Username", "Name", "Email", "Mobile", "Address", "Joined"].map((h) => (
-        <th key={h} style={s.th}>{h}</th>
-      ))}
-    </tr>
-  </thead>
+<thead>
+  <tr>
+    {["ID", "Username", "Name", "Email", "Mobile", "Address", "Created At"].map((h) => (
+      <th key={h} style={s.th}>{h}</th>
+    ))}
+
+    {/* ✅ Show only if admin */}
+    {userLoginData?.user_level === 4 && (
+      <th style={s.th}>Action</th>
+    )}
+  </tr>
+</thead>
 
   <tbody>
     {loading ? (
@@ -161,6 +189,19 @@ useEffect(() => {
               ? new Date(u.created_at).toLocaleDateString("en-IN")
               : "-"}
           </td>
+                  {userLoginData?.user_level === 4 && (
+          <td style={s.td}>
+            <button
+              style={s.deleteBtn}
+              onClick={(e) => {
+                e.stopPropagation(); // prevent row click
+                handleDeleteUser(u.id);
+              }}
+            >
+              Delete
+            </button>
+          </td>
+        )}
         </tr>
       ))
     )}
@@ -202,7 +243,7 @@ const s: Record<string, React.CSSProperties> = {
   page: {
     padding: 24,
     background: "#070e1c",
-    minHeight: "100vh",
+    minHeight: "calc(100vh - 64px)",
     fontFamily: "'Sora', sans-serif",
     color: "#e2e8f0",
   },
@@ -238,7 +279,7 @@ const s: Record<string, React.CSSProperties> = {
   },
 
   tableWrapper: {
-    overflow: "hidden",
+    overflow: "auto",
     borderRadius: 14,
     border: "1px solid rgba(255,255,255,0.06)",
     background: "#0f172a",
@@ -248,15 +289,15 @@ const s: Record<string, React.CSSProperties> = {
   table: {
     width: "100%",
     borderCollapse: "collapse",
-    fontSize: "0.85rem",
+    fontSize: "1rem",
   },
 
   th: {
     textAlign: "left",
-    padding: "14px 16px",
-    background: "#1e293b",
-    color: "#94a3b8",
-    fontSize: "0.7rem",
+    padding: "18px 10px",
+    background: "rgb(112 134 167 / 76%)",
+    color: "rgb(252 250 255 / 78%)",
+    fontSize: "0.90rem",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
     fontWeight: 700,
@@ -264,9 +305,10 @@ const s: Record<string, React.CSSProperties> = {
   },
 
   td: {
-    padding: "14px 16px",
-    borderBottom: "1px solid rgba(255,255,255,0.04)",
+    padding: "10px",
+    borderBottom: "1px solid rgb(255 235 235 / 67%)",
     color: "#cbd5e1",
+   maxWidth: 200, 
   },
 
   row: {
@@ -275,8 +317,7 @@ const s: Record<string, React.CSSProperties> = {
   },
 
   rowHover: {
-    background: "rgba(255,255,255,0.03)",
-    transform: "scale(1.002)",
+    background: "#1df75252",
   },
 
   empty: {
@@ -296,4 +337,14 @@ const s: Record<string, React.CSSProperties> = {
     fontSize: "0.85rem",
     boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
   },
+  deleteBtn: {
+  padding: "6px 12px",
+  background: "crimson",
+  border: "none",
+  borderRadius: 6,
+  color: "#fff",
+  cursor: "pointer",
+  fontSize: "0.75rem",
+  fontWeight: 600,
+},
 };

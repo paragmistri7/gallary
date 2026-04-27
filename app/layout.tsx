@@ -3,7 +3,7 @@ import "./globals.css";// 👈 new file
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "My App",
+  title: "My Gallary App",
   description: "Dashboard",
 };
 
